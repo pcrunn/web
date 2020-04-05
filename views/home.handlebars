@@ -1,0 +1,46 @@
+<p class="title">
+    3Hunned
+</p>
+
+<p class="subtitle">
+    is a modern PotPvP server designed to be able to <strong>handle</strong> the current community
+</p>
+
+<div class="container">
+
+    <nav class="level">
+
+        <div class="level-item has-text-cenetered">
+            <div>
+                <p class="heading">unique players</p>
+                <p id="unique" class="title">300</p>
+            </div>
+        </div>
+
+        <div class="level-item has-text-cenetered">
+            <div>
+                <p class="heading">online players</p>
+                <p class="title">300</p>
+            </div>
+        </div>
+
+        <div class="level-item has-text-cenetered">
+            <div>
+                <p class="heading">stage</p>
+                <p class="title">DEVELOPMENT</p>
+            </div>
+        </div>
+
+    </nav>
+
+</div>
+
+<script>
+    $(async () => {
+
+        // update statistics
+        let users = (await $.getJSON('/api/users')).length;
+        $('#unique').text(users);
+
+    });
+</script>

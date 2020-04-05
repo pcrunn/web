@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>3Hunned</title>
+
+    <!-- Bulma (fire ass css components) -->
+    <link href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" rel="stylesheet" />
+
+    <!-- Font Awesome (icons) -->
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+    <!-- jquery (better javascript) -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <!-- toastr.js (notifications/toasts) -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    <!-- toastr.css (css) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+</head>
+
+<body class="container">
+
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <img class="navbar-item" src="https://i.imgur.com/79MlBkZ.png" width="100" />
+        </div>
+
+        <div class="navbar-end">
+            <form class="navbar-item" id="search-form">
+
+                <div class="dropdown">
+
+                    <div class="dropdown-trigger">
+                        <div id="search-input-control" class="control">
+                            <input class="input" id="search-input" placeholder="search" type="text" />
+                        </div>
+                    </div>
+
+                    <div id="menu" class="dropdown-menu"></div>
+
+                </div>
+
+            </form>
+        </div>
+    </nav>
+
+    <div class="content">{{{ body }}}</div>
+
+</body>
+
+<script>
+
+    // initialize toastr.js
+    toastr.options = {
+        "closeButton": false,
+        "debug": true,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
+    $(async () => {
+
+        let usernames = (await $.getJSON('/api/users'));
+
+        $('#search-form').submit(event => {
+
+            // don't redirect
+            event.preventDefault();
+
+            // make the input load and stuff
+            $('#search-input-control').addClass('is-loading');
+
+            // get the username
+            let username = $('#search-input').val();
+
+            // check if the user exists
+            let result = usernames.filter(name => name.toLowerCase().startsWith(username.toLowerCase()));
+
+            if (result.length == 0) {
+                toastr['error'](username + ' was not found', '404');
+                console.log('dawg')
+            } else {
+                let newLocation = '/u/' + result[0];
+                window.location.replace(newLocation);
+            }
+
+        });
+
+    });
+
+</script>
+
+</html>

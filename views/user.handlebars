@@ -1,0 +1,34 @@
+<div class="columns">
+
+    <div class="column">
+        <img src="https://crafatar.com/renders/body/{{ user.uuid }}">
+    </div>
+
+    <div class="column is-four-fifths">
+        <p class="title">
+            {{ user.name }}
+            <span class="tag is-success">default</span>
+        </p>
+
+        <p class="subtitle">
+            has played for {{ formatted_playtime }}
+        </p>
+
+        <nav class="level">
+
+            {{#each user.statistics as |statistic|}}
+
+            <div class="level-item">
+                <div>
+                    <p class="heading">{{ @key }}</p>
+                    <p class="title">{{ this }}</p>
+                </div>
+            </div>
+
+            {{/each}}
+
+        </nav>
+
+    </div>
+
+</div>
