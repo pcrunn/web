@@ -77,7 +77,7 @@
 
         let usernames;
 
-        $('#search-form').submit(event => {
+        $('#search-form').submit(async event => {
 
             // update users
             usernames = (await $.getJSON('/api/users'));
