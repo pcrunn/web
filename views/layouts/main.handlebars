@@ -75,12 +75,9 @@
 
     $(async () => {
 
-        let usernames;
+        let usernames = (await $.getJSON('/api/users'));
 
         $('#search-form').submit(async event => {
-
-            // update users
-            usernames = (await $.getJSON('/api/users'));
 
             // don't redirect
             event.preventDefault();
