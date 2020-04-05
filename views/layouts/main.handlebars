@@ -75,9 +75,13 @@
 
     $(async () => {
 
-        let usernames = (await $.getJSON('/api/users'));
+        let usernames;
+        const fetchUsernames = () => usernames = (await $.getJSON('/api/users'));
 
         $('#search-form').submit(event => {
+
+            // update users
+            fetchUsernames();
 
             // don't redirect
             event.preventDefault();
@@ -93,7 +97,7 @@
 
             if (result.length == 0) {
                 toastr['error'](username + ' was not found', '404');
-                console.log('dawg')
+                $('#search-input-control').removeClass('is-loading');
             } else {
                 let newLocation = '/u/' + result[0];
                 window.location.replace(newLocation);
