@@ -89,7 +89,7 @@
             let username = $('#search-input').val();
 
             // check if the user exists
-            let result = usernames.filter(name => name.toLowerCase().startsWith(username.toLowerCase()));
+            let result = usernames.filter(name => name.toLowerCase() == username.toLowerCase());
 
             if (result.length == 0) {
                 toastr['error'](username + ' was not found', '404');
