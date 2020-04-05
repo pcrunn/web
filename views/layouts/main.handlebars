@@ -76,12 +76,11 @@
     $(async () => {
 
         let usernames;
-        const fetchUsernames = () => usernames = (await $.getJSON('/api/users'));
 
         $('#search-form').submit(event => {
 
             // update users
-            fetchUsernames();
+            usernames = (await $.getJSON('/api/users'));
 
             // don't redirect
             event.preventDefault();
