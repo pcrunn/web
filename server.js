@@ -29,12 +29,16 @@ app.get('/u/:name', async (request, response) => {
     let name = request.params['name'];
     let result = await (await r.table('users').run(connection)).toArray();
 
-    if (result.length == 0) return response.send('404');
+    if (result.length == 0) return response.render('error', { code: 404, message: 'Player not found' });
 
     let user = result[0];
     let formatted_playtime = moment.duration(user.playtime).humanize();
 
     return response.render('user', { user, formatted_playtime });
+});
+
+app.get('*', (request, response) => {
+    return response.render('error', { code: 404, message: 'Route not found' });
 });
 
 // start server
