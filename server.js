@@ -1,4 +1,5 @@
 const moment = require('moment');
+const handlebars = require('express-handlebars');
 const r = require('rethinkdb');
 const express = require('express');
 const app = express();
