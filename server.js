@@ -27,7 +27,7 @@ app.get('/api/users', async (request, response) => {
 
 app.get('/u/:name', async (request, response) => {
     let name = request.params['name'];
-    let result = await (await r.table('users').run(connection)).toArray();
+    let result = await (await r.table('users').filter({ name }).run(connection)).toArray();
 
     if (result.length == 0) return response.render('error', { code: 404, message: 'Player not found' });
 
