@@ -1,5 +1,6 @@
 const moment = require('moment');
 const r = require('rethinkdb');
+const express = requre('express');
 const app = express();
 
 // connect to the database
